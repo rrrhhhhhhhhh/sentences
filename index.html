@@ -1,0 +1,219 @@
+<!Doctype html>
+<html>
+<head>
+
+<title>Robert Grenier - Sentences</title>
+
+<link rel="stylesheet" href="./resources/css/style.css">
+<script language="JavaScript" type="text/javascript" src="./resources/js/t.js"></script>
+<script language="JavaScript" type="text/javascript">
+
+<!--
+var r = -1;
+
+var mx = 499; // maximum
+var a = new Array();
+
+function AddNumsToDict(){
+    var m,n,i,j;
+    i = 0;
+    j = 0;
+    while (i <= 499)
+    {
+       m = (500 * Math.random()) + 1;
+       n = Math.floor(m);
+
+       for (j=0;j<=499;j++)
+       {
+         if (a[j] == (n-1))
+         {
+	   j = -1;
+           break;
+         }
+       }
+       if (j != -1)
+       {
+	 //a.push(n-1);
+         a[i] = (n-1);
+         i++;
+	 j=0;
+       }
+
+    }
+    return;
+
+}
+
+function startup()
+{
+  writit('SENTENCES<br><br><br>Robert Grenier', 'test');
+  SetCookie("pg", -1);
+  AddNumsToDict();
+
+}
+
+function SetCookie(sName, sValue)
+{
+  document.cookie = sName + "=" + escape(sValue) + ";"
+
+}
+
+function GetCookie(sName)
+{
+  // cookies are separated by semicolons
+  var aCookie = document.cookie.split("; ");
+  for (var i=0; i < aCookie.length; i++)
+  {
+    // a name/value pair (a crumb) is separated by an equal sign
+    var aCrumb = aCookie[i].split("=");
+    if (sName == aCrumb[0])
+      return unescape(aCrumb[1]);
+  }
+
+  // a cookie with the requested name does not exist
+  return null;
+}
+function doBack(){
+//var oPrev = xbElem('prev');
+//var oNxt = xbElem('nxt');
+
+//if ((oNxt) && (oPrev))
+//{
+    var num = GetCookie("pg");
+    if (num == mx){ //maximum
+      SetCookie("pg",parseInt(num) - 1);
+      num = GetCookie("pg");
+    }
+//    oNxt.disabled = false;
+
+//    if (num <= 1){
+//      oPrev.disabled = true;
+//    }
+    if (num >= 1){
+      num--;
+      writit(Caption[a[num]], 'test');
+      SetCookie("pg",num);
+    }
+//}
+}
+
+function doNext(){
+//var oPrev = xbElem('prev');
+//var oNxt = xbElem('nxt');
+//  if ((oNxt) && (oPrev))
+//  {
+  var num = GetCookie("pg");
+//  if (num > -1){
+//    oPrev.disabled = false;
+//  }
+//  else{
+//    oPrev.disabled = true;
+//  }
+//  if (num >= parseInt(mx)-1){  //maximum - 1
+//    oNxt.disabled = true;
+//  }
+//  else {
+//    oNxt.disabled = false;
+//  }
+  if (num <= parseInt(mx)-2){
+    num++;
+    writit(Caption[a[num]],'test');
+    SetCookie("pg",num);
+  }
+//  }
+}
+function writit(text,id)
+{
+        if (document.getElementById)
+        {
+                x = document.getElementById(id);
+                x.innerHTML = '';
+                x.innerHTML = text;
+        }
+        else if (document.all)
+        {
+                x = document.all[id];
+                x.innerHTML = text;
+        }
+        else if (document.layers)
+        {
+                x = document.layers[id];
+		l = (480-(getNumLines(text)*8))/2;
+		w = (764-(getWidestLine(text)*8))/2;
+                text2 = '<td id=rel align="center" CLASS="testclass" style="font:12px courier,courier new;padding-left:' + w.toString() + 'px' + ';padding-top:' + l.toString() + 'px' + '">' + text + '</td>';
+                x.document.open();
+                x.document.write(text2);
+                x.document.close();
+        }
+}
+function getNumLines(mystr)
+{
+  var a = mystr.split("<br>")
+  return(a.length);
+}
+function getWidestLine(mystr)
+{
+  if (mystr.indexOf("&nbsp;") != -1)
+  {
+	re = /&nbsp;*/g;
+	mystr = mystr.replace(re,"Z");
+	//alert(mystr);
+  }
+  if (mystr.indexOf("<u>") != -1)
+  {
+   	re = /<u>*/g;
+        mystr = mystr.replace(re, "");
+        re = /<\/u>*/g;
+	mystr = mystr.replace(re, "");
+  }
+
+  if (mystr.indexOf("<br>") != -1)
+  {
+    var ss, t;
+    var lngest;
+    ss = mystr.split("<br>");
+    lngest = ss[0].length;
+    for (t=0; t < ss.length; t++)
+    {
+      if (ss[t].length > lngest)
+      {
+        lngest = ss[t].length;
+      }
+    }
+  }
+  else {
+  	lngest = mystr.length;
+  }
+  return(lngest);
+}
+// -->
+
+</script>
+<body bgcolor="gainsboro" onload="startup();">
+
+
+<table bgcolor="white" border height="480px" width="764px" cellpadding="0" cellspacing="0">
+<tr>
+<td align="center">
+<table nowrap>
+<tr>
+<td><img width="700px" height="1px" src="./resources/images/w.gif"></td>
+<td>
+<div class="testclass" id="test"></div>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+<center>
+<form>
+<p>
+
+<input type="button" onclick="doBack(); return false" value="Back">
+<input type="button" onclick="doNext(); return false" value="Next">
+</p>
+</form>
+</center>
+</body>
+</html>
