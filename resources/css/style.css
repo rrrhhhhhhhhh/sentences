@@ -13,7 +13,7 @@ justify-content:center;
         top: 10px;
         left:10px;
         padding: 0px;
-        z-index: 5;
+        z-index: 20;
 }
 
 #rel {position: relative;
